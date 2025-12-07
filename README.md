@@ -9,7 +9,7 @@
 
 <br />
 
-A decentralized booking platform for salon services (haircuts, nail treatments) built on Solana blockchain. Pay with crypto through Phantom wallet with automatic smart contract-managed refunds.
+A decentralized booking platform for salon services (haircuts, nail treatments, styling, coloring) built on Solana blockchain. Pay with crypto through Phantom wallet with automatic smart contract-managed refunds.
 
 **Inspired by [buker.hr](https://buker.hr)** - Clean, minimal design with intuitive UX and beautiful light mode interface.
 
@@ -19,9 +19,13 @@ A decentralized booking platform for salon services (haircuts, nail treatments) 
 
 ### For Clients
 - 🔐 **Phantom Wallet Login** - Secure Web3 authentication
-- 📅 **Easy Booking** - Browse services, pick dates/times, book instantly
+- 🎯 **Category-Based Booking** - Browse services by category (Haircuts, Nails, Styling, Coloring)
+- 🏪 **Salon Selection** - Choose from salons offering specific services
+- 📅 **Easy Booking** - Pick dates/times, book instantly
 - 💳 **Crypto Payments** - Pay in SOL with instant confirmation on Solana network
 - 🔄 **Smart Refunds** - Automatic refunds based on cancellation time (transparent blockchain rules)
+- 📋 **Reservation Management** - View upcoming, past, and cancelled reservations
+- ❌ **Easy Cancellation** - Cancel reservations with automatic status updates
 - 📱 **Mobile Ready** - Fully responsive design with beautiful light mode
 - 🎨 **Modern UI** - Clean, bright interface with pink/rose accents
 
@@ -49,22 +53,33 @@ All refunds are automatically processed by the smart contract:
 ## 🏗️ Architecture
 
 ```
-booking-dapp/
+Web3_hackaton_project-main/
 ├── contracts/          # Solana smart contract (Anchor/Rust)
 │   ├── programs/       # Program source code
+│   │   └── solbook/    # Main booking program
 │   ├── tests/          # Integration tests
 │   └── scripts/        # Deployment scripts
 ├── backend/            # Node.js API server
 │   ├── src/
-│   │   ├── routes/     # API endpoints
-│   │   ├── services/   # Business logic
-│   │   └── middleware/ # Auth, validation
+│   │   ├── routes/     # API endpoints (auth, salons, services, reservations)
+│   │   ├── services/   # Business logic (Solana, database)
+│   │   └── middleware/ # Auth, error handling
 │   └── prisma/         # Database schema (SQLite by default)
 └── frontend/           # Next.js 14 frontend
     ├── src/
     │   ├── app/        # Pages & routes
+    │   │   ├── page.tsx              # Homepage with hero section
+    │   │   ├── services/             # Category-based service selection
+    │   │   ├── salons/               # Salon listing
+    │   │   ├── book/[id]/            # Booking page
+    │   │   ├── reservations/         # Reservation management
+    │   │   ├── dashboard/            # Salon owner dashboard
+    │   │   └── refund-policy/        # Refund policy page
     │   ├── components/ # React components
-    │   └── lib/        # Utilities & hooks
+    │   │   ├── layout/  # Header, Footer
+    │   │   ├── ui/      # WalletButton, ThemeToggle
+    │   │   └── providers/ # Wallet, Theme providers
+    │   └── lib/        # Utilities & hooks (API client, Solana helpers)
     └── public/         # Static assets
 ```
 
@@ -85,13 +100,13 @@ booking-dapp/
 
 #### Windows (PowerShell)
 ```powershell
-cd booking-dapp
+cd Web3_hackaton_project-main
 .\scripts\setup.ps1
 ```
 
 #### macOS/Linux
 ```bash
-cd booking-dapp
+cd Web3_hackaton_project-main
 chmod +x scripts/setup.sh
 ./scripts/setup.sh
 ```
@@ -138,14 +153,16 @@ npm install
 # - DATABASE_URL for PostgreSQL (optional, defaults to SQLite)
 
 # Generate Prisma client
-npx prisma generate
+npm run db:generate
 
 # Push database schema
-npx prisma db push
+npm run db:push
 
 # Start development server
 npm run dev
 ```
+
+Backend runs on `http://localhost:3001`
 
 #### 3. Frontend
 
@@ -156,6 +173,7 @@ cd frontend
 npm install
 
 # Create .env.local
+# Set NEXT_PUBLIC_API_URL=http://localhost:3001/api
 # Set NEXT_PUBLIC_PROGRAM_ID from deployment
 
 # Start development server
@@ -175,22 +193,25 @@ Open [http://localhost:3000](http://localhost:3000) and connect your Phantom wal
 ### Salons
 - `GET /api/salons` - List all salons
 - `GET /api/salons/:id` - Get salon details
+- `GET /api/salons/wallet/:walletAddress` - Get salon by wallet address
 - `POST /api/salons` - Register new salon (auth required)
 - `PUT /api/salons/:id` - Update salon (owner only)
+- `GET /api/salons/:id/reservations` - Get salon reservations (owner only)
+- `GET /api/salons/:id/earnings` - Get salon earnings (owner only)
 
 ### Services
-- `GET /api/services` - List all services
+- `GET /api/services` - List all services (with optional filters: category, salonId)
 - `GET /api/services/:id` - Get service details
 - `POST /api/services` - Create service (salon owner)
 
 ### Reservations
-- `GET /api/reservations/my` - Get user's reservations
+- `GET /api/reservations/my` - Get user's reservations (with optional status filter)
 - `GET /api/reservations/slots` - Get available time slots
 - `POST /api/reservations` - Create reservation
 - `POST /api/reservations/:id/confirm` - Confirm with transaction
-- `POST /api/reservations/:id/cancel` - Cancel reservation
-- `POST /api/reservations/:id/complete` - Mark as completed
-- `POST /api/reservations/:id/no-show` - Mark as no-show
+- `POST /api/reservations/:id/cancel` - Cancel reservation (auto-calculates refund)
+- `POST /api/reservations/:id/complete` - Mark as completed (salon owner)
+- `POST /api/reservations/:id/no-show` - Mark as no-show (salon owner)
 
 ---
 
@@ -214,17 +235,49 @@ cancel_reservation()
 // Complete reservation (salon owner)
 complete_reservation()
 
-// Mark no-show (salon owner, after 15 min)
+// Mark no-show (salon owner, after appointment time)
 mark_no_show()
 ```
 
 ### Events Emitted
 
+- `PlatformInitialized` - Platform setup complete
+- `SalonRegistered` - New salon registered
 - `ReservationCreated` - New booking confirmed
 - `ReservationCancelled` - Booking cancelled with refund details
 - `RefundProcessed` - Refund sent to client
 - `ReservationCompleted` - Service completed, payment released
 - `ReservationNoShow` - Client didn't show up
+
+### Account Structures
+
+**Platform**: Stores global stats and treasury wallet
+**Salon**: Stores salon info, owner, services, and stats
+**Reservation**: Stores booking details, payment, and status
+
+See [docs/SMART_CONTRACT.md](docs/SMART_CONTRACT.md) for detailed documentation.
+
+---
+
+## 🎯 User Flow
+
+### Booking a Service
+
+1. **Select Category** - Choose from: Šišanje, Nokti, Styling, or Bojanje
+2. **Choose Salon** - Browse salons offering services in selected category
+3. **Select Service** - Click on specific service or "Rezerviraj termin" button
+4. **Pick Date & Time** - Select from available slots
+5. **Connect Wallet** - Connect Phantom wallet if not already connected
+6. **Confirm & Pay** - Review booking and confirm payment
+7. **View Reservation** - Check "Nadolazeće" tab in Reservations page
+
+### Cancelling a Reservation
+
+1. **Go to Reservations** - Navigate to "Moje rezervacije"
+2. **Select Reservation** - Find reservation in "Nadolazeće" tab
+3. **Click "Otkaži"** - Cancel the reservation
+4. **Auto-Update** - Reservation automatically moves to "Otkazane" tab
+5. **Refund Processed** - Smart contract automatically calculates and processes refund
 
 ---
 
@@ -308,6 +361,8 @@ TREASURY_WALLET=<treasury-pubkey>
 DATABASE_URL=file:./prisma/dev.db  # SQLite (default) or postgresql://... for PostgreSQL
 JWT_SECRET=<secure-random-string>
 ALLOWED_ORIGINS=https://yourdomain.com
+EUR_TO_LAMPORTS=100000000  # 1 EUR = 0.1 SOL (adjust based on SOL price)
+APP_COMMISSION_BPS=300  # 3% commission
 ```
 
 #### Frontend (.env.local)
@@ -342,6 +397,80 @@ NEXT_PUBLIC_APP_URL=https://yourdomain.com  # For metadata
 
 ---
 
+## 📦 Tech Stack
+
+### Frontend
+- **Next.js 14** - React framework with App Router
+- **TypeScript** - Type safety
+- **Tailwind CSS** - Utility-first CSS
+- **Framer Motion** - Smooth animations
+- **Solana Wallet Adapter** - Wallet integration
+- **date-fns** - Date formatting
+- **React Hot Toast** - Notifications
+
+### Backend
+- **Node.js** - Runtime
+- **Express** - Web framework
+- **TypeScript** - Type safety
+- **Prisma** - ORM
+- **SQLite/PostgreSQL** - Database
+- **Anchor** - Solana program interaction
+- **@solana/web3.js** - Solana SDK
+
+### Smart Contract
+- **Rust** - Programming language
+- **Anchor Framework** - Solana development framework
+- **Solana Program Library** - Core Solana functionality
+
+---
+
+## 🔄 Data Flow
+
+### Booking Flow
+1. User selects category → Views salons → Chooses service
+2. Frontend stores salon info in sessionStorage
+3. User picks date/time → Frontend calls booking page
+4. Booking page reads salon info and service details
+5. User connects wallet → Confirms payment
+6. Frontend creates reservation in localStorage
+7. Backend creates reservation in database
+8. Smart contract locks payment in escrow
+9. Reservation appears in "Nadolazeće" tab
+
+### Cancellation Flow
+1. User clicks "Otkaži" on reservation
+2. Frontend updates reservation status to "cancelled" in localStorage
+3. Frontend saves cancelled reservation ID to localStorage
+4. Reservation automatically moves to "Otkazane" tab
+5. Smart contract calculates refund based on time
+6. Refund processed automatically
+
+---
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+**Wallet not connecting:**
+- Ensure Phantom wallet is installed and unlocked
+- Check if you're on the correct network (Devnet/Mainnet)
+
+**Reservations not showing:**
+- Clear browser localStorage and try again
+- Check browser console for errors
+
+**Transaction failing:**
+- Ensure you have enough SOL in wallet
+- Check Solana network status
+- Verify program ID is correct
+
+**Backend not starting:**
+- Check if port 3001 is available
+- Verify database connection
+- Check environment variables
+
+---
+
 ## 📄 License
 
 MIT License - see [LICENSE](LICENSE) for details.
@@ -363,6 +492,19 @@ MIT License - see [LICENSE](LICENSE) for details.
 - 📧 Email: support@glambook.hr
 - 🐦 Twitter: @glambook_hr
 - 💬 Discord: discord.gg/glambook
+
+---
+
+## 🎉 Features Highlights
+
+### Recent Updates
+- ✅ Category-based service browsing (Šišanje, Nokti, Styling, Bojanje)
+- ✅ Direct salon selection and booking
+- ✅ Improved reservation management with tabs (Nadolazeće, Prošle, Otkazane)
+- ✅ Automatic reservation status updates
+- ✅ Persistent reservation storage (localStorage)
+- ✅ Enhanced booking flow with salon context
+- ✅ Beautiful light mode UI with pink/rose accents
 
 ---
 
