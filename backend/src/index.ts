@@ -37,7 +37,7 @@ app.use('/api/webhooks', webhookRouter);
 // Error handler
 app.use(errorHandler);
 
-// Initialize Solana service and start server
+// Initialize GlamBook Solana service and start server
 async function main() {
   try {
     // Initialize Solana connection

@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useWallet } from '@solana/wallet-adapter-react'
-import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
+import { WalletButton } from '@/components/ui/WalletButton'
 import { 
   Calendar, 
   Clock, 
@@ -83,8 +83,8 @@ export default function DashboardPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <div className="w-20 h-20 rounded-full bg-primary-50 flex items-center justify-center mx-auto mb-6">
-              <Wallet className="w-10 h-10 text-primary-500" />
+            <div className="w-20 h-20 rounded-full bg-pink-50 flex items-center justify-center mx-auto mb-6">
+              <Wallet className="w-10 h-10 text-pink-500" />
             </div>
             <h1 className="font-display text-3xl font-bold text-neutral-900 mb-4">
               Salon Dashboard
@@ -92,7 +92,7 @@ export default function DashboardPage() {
             <p className="text-neutral-500 mb-8">
               Povežite vaš Phantom wallet za pristup dashboardu
             </p>
-            <WalletMultiButton />
+            <WalletButton />
           </motion.div>
         </div>
       </div>
@@ -189,8 +189,8 @@ export default function DashboardPage() {
             return (
               <div key={stat.label} className="card">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-primary-50 flex items-center justify-center">
-                    <Icon className="w-6 h-6 text-primary-500" />
+                  <div className="w-12 h-12 rounded-xl bg-pink-50 flex items-center justify-center">
+                    <Icon className="w-6 h-6 text-pink-500" />
                   </div>
                   <span className="text-sm font-medium text-green-600 bg-green-50 px-2 py-1 rounded-full">
                     {stat.change}
@@ -230,7 +230,7 @@ export default function DashboardPage() {
                     className="flex items-center justify-between p-4 bg-neutral-50 rounded-xl"
                   >
                     <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-400 to-accent-400 flex items-center justify-center text-white font-medium text-sm">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-rose-400 flex items-center justify-center text-white font-medium text-sm">
                         {reservation.client.slice(0, 2)}
                       </div>
                       <div>
@@ -309,7 +309,7 @@ export default function DashboardPage() {
                 ))}
               </div>
 
-              <button className="w-full mt-4 py-2 text-sm text-primary-600 hover:text-primary-700 font-medium">
+              <button className="w-full mt-4 py-2 text-sm text-pink-600 hover:text-pink-700 font-medium">
                 Vidi sve transakcije
               </button>
             </div>
@@ -323,7 +323,7 @@ export default function DashboardPage() {
           transition={{ delay: 0.5 }}
           className="mt-8"
         >
-          <div className="card bg-gradient-to-r from-primary-500 to-accent-500 text-white">
+          <div className="card bg-gradient-to-r from-pink-500 to-rose-500 text-white">
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               <div>
                 <h3 className="text-xl font-semibold mb-2">
@@ -333,7 +333,7 @@ export default function DashboardPage() {
                   Imate 12.5 SOL dostupno za podizanje
                 </p>
               </div>
-              <button className="px-6 py-3 bg-white text-primary-600 font-semibold rounded-xl hover:bg-white/90 transition-colors flex items-center gap-2">
+              <button className="px-6 py-3 bg-white text-pink-600 font-semibold rounded-xl hover:bg-white/90 transition-colors flex items-center gap-2">
                 <Wallet className="w-5 h-5" />
                 Povuci sredstva
               </button>

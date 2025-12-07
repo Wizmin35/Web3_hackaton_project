@@ -133,7 +133,7 @@ export default function ServicesPage() {
   })
 
   return (
-    <div className="min-h-screen pt-28 pb-20">
+    <div className="min-h-screen pt-28 pb-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -144,7 +144,7 @@ export default function ServicesPage() {
           <h1 className="font-display text-4xl lg:text-5xl font-bold text-neutral-900 mb-4">
             Pronađite savršenu uslugu
           </h1>
-          <p className="text-xl text-neutral-500 max-w-2xl mx-auto">
+          <p className="text-xl text-neutral-600 max-w-2xl mx-auto">
             Pregledajte sve dostupne usluge i rezervirajte termin koji vam odgovara
           </p>
         </motion.div>
@@ -158,7 +158,7 @@ export default function ServicesPage() {
         >
           {/* Search */}
           <div className="relative max-w-2xl mx-auto mb-8">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-900" />
             <input
               type="text"
               placeholder="Pretraži usluge..."
@@ -179,8 +179,8 @@ export default function ServicesPage() {
                   className={clsx(
                     'flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium transition-all duration-200',
                     selectedCategory === category.id
-                      ? 'bg-primary-500 text-white shadow-glow'
-                      : 'bg-white text-neutral-600 border border-neutral-200 hover:border-primary-300 hover:text-primary-600'
+                      ? 'bg-pink-500 text-neutral-900 shadow-glow'
+                      : 'bg-white text-neutral-900 border border-pink-200 hover:border-pink-300 hover:text-pink-600'
                   )}
                 >
                   <Icon className="w-4 h-4" />
@@ -210,7 +210,7 @@ export default function ServicesPage() {
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                     {service.popular && (
-                      <span className="absolute top-3 right-3 px-3 py-1 bg-gradient-to-r from-primary-500 to-accent-500 text-white text-xs font-semibold rounded-full">
+                      <span className="absolute top-3 right-3 px-3.5 py-1.5 bg-gradient-to-r from-pink-500 to-rose-500 text-neutral-900 text-xs font-bold rounded-full z-20 shadow-xl border-2 border-white">
                         Popularno
                       </span>
                     )}
@@ -218,7 +218,7 @@ export default function ServicesPage() {
 
                   {/* Content */}
                   <div className="p-5">
-                    <h3 className="text-lg font-semibold text-neutral-900 mb-2 group-hover:text-primary-600 transition-colors">
+                    <h3 className="text-lg font-semibold text-neutral-900 mb-2 group-hover:text-pink-600 transition-colors">
                       {service.name}
                     </h3>
                     <p className="text-neutral-500 text-sm mb-4 line-clamp-2">
@@ -263,12 +263,12 @@ export default function ServicesPage() {
             className="text-center py-20"
           >
             <div className="w-16 h-16 rounded-full bg-neutral-100 flex items-center justify-center mx-auto mb-4">
-              <Search className="w-8 h-8 text-neutral-400" />
+              <Search className="w-8 h-8 text-neutral-900" />
             </div>
             <h3 className="text-xl font-semibold text-neutral-900 mb-2">
               Nema rezultata
             </h3>
-            <p className="text-neutral-500">
+            <p className="text-neutral-900">
               Pokušajte s drugim pojmom za pretraživanje ili kategorijom
             </p>
           </motion.div>

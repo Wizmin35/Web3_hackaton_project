@@ -24,10 +24,20 @@ body {
 
 body {
   font-family: var(--font-geist-sans);
-  background: #fafafa;
+  background: #ffffff;
   color: #171717;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Light mode - brighter colors */
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #fef7ff;
+  --bg-tertiary: #fdf2f8;
+  --text-primary: #ffffff;
+  --text-secondary: #ffffff;
+  --border-color: #f1e5ff;
 }
 
 /* Custom scrollbar */
@@ -37,62 +47,75 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f5f5f5;
+  background: #fef7ff;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d4d4d4;
+  background: #f9a8d4;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a3a3a3;
+  background: #f472b6;
 }
 
-/* Phantom wallet button styling overrides */
+/* GlamBook - Phantom wallet button styling overrides */
 .wallet-adapter-button {
-  background: linear-gradient(135deg, #0ea5e9 0%, #8b5cf6 100%) !important;
+  background: linear-gradient(135deg, #ec4899 0%, #f43f5e 100%) !important;
   border-radius: 12px !important;
   font-family: var(--font-geist-sans) !important;
   font-weight: 600 !important;
   padding: 12px 24px !important;
   transition: all 0.3s ease !important;
-  box-shadow: 0 4px 15px rgba(14, 165, 233, 0.25) !important;
-}
-
-.wallet-adapter-button:hover {
-  transform: translateY(-2px) !important;
-  box-shadow: 0 6px 20px rgba(14, 165, 233, 0.35) !important;
+  box-shadow: 0 4px 15px rgba(236, 72, 153, 0.25) !important;
+  color: #ffffff !important;
 }
 
 .wallet-adapter-button-trigger {
   background: transparent !important;
   box-shadow: none !important;
+  color: #171717 !important;
+}
+
+.wallet-adapter-button-trigger span,
+.wallet-adapter-button-trigger svg,
+.wallet-adapter-button-trigger * {
+  color: #171717 !important;
+}
+
+.wallet-adapter-button-trigger:hover {
+  background: rgba(0, 0, 0, 0.05) !important;
+}
+
+.wallet-adapter-button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(236, 72, 153, 0.35) !important;
 }
 
 .wallet-adapter-dropdown-list {
   background: white !important;
   border-radius: 16px !important;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1) !important;
-  border: 1px solid #e5e5e5 !important;
+  border: 1px solid #fce7f3 !important;
 }
 
 .wallet-adapter-dropdown-list-item {
   font-family: var(--font-geist-sans) !important;
   padding: 12px 16px !important;
+  color: #171717 !important;
 }
 
 /* Glass effect */
 .glass {
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(252, 231, 243, 0.5);
 }
 
 /* Gradient text */
 .gradient-text {
-  background: linear-gradient(135deg, #0ea5e9 0%, #d946ef 100%);
+  background: linear-gradient(135deg, #ec4899 0%, #f43f5e 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -101,32 +124,34 @@ body {
 /* Button styles */
 @layer components {
   .btn-primary {
-    @apply px-6 py-3 bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-xl 
-           hover:from-primary-600 hover:to-primary-700 transition-all duration-300 
+    @apply px-6 py-3 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold rounded-xl 
+           hover:from-pink-600 hover:to-rose-600 transition-all duration-300 
            shadow-soft hover:shadow-glow hover:-translate-y-0.5 active:translate-y-0;
   }
 
   .btn-secondary {
-    @apply px-6 py-3 bg-white text-neutral-800 font-semibold rounded-xl border border-neutral-200
-           hover:border-primary-300 hover:bg-primary-50 transition-all duration-300
+    @apply px-6 py-3 bg-white text-neutral-900 font-semibold rounded-xl border border-pink-200
+           hover:border-pink-400 hover:bg-pink-50 transition-all duration-300
            shadow-soft hover:shadow-soft-lg;
   }
 
   .btn-accent {
-    @apply px-6 py-3 bg-gradient-to-r from-accent-500 to-accent-600 text-white font-semibold rounded-xl 
-           hover:from-accent-600 hover:to-accent-700 transition-all duration-300 
+    @apply px-6 py-3 bg-gradient-to-r from-rose-500 to-pink-500 text-white font-semibold rounded-xl 
+           hover:from-rose-600 hover:to-pink-600 transition-all duration-300 
            shadow-soft hover:shadow-glow-accent hover:-translate-y-0.5;
   }
 
   .card {
-    @apply bg-white rounded-2xl p-6 shadow-soft border border-neutral-100
+    @apply bg-white rounded-2xl p-6 shadow-soft border border-pink-100/50
            hover:shadow-soft-lg transition-all duration-300;
+    overflow: visible;
   }
 
   .input-field {
-    @apply w-full px-4 py-3 bg-white border border-neutral-200 rounded-xl
-           focus:outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-100
-           transition-all duration-200 placeholder:text-neutral-400;
+    @apply w-full px-4 py-3 bg-white border border-pink-200 rounded-xl
+           focus:outline-none focus:border-pink-400 focus:ring-2 focus:ring-pink-100
+           transition-all duration-200 placeholder:text-neutral-400
+           text-neutral-900;
   }
 }
 
@@ -141,15 +166,17 @@ body {
   animation: gradient-shift 5s ease infinite;
 }
 
-/* Hero background pattern */
+/* Hero background pattern - Light Pink theme - brighter for light mode */
 .hero-bg {
+  background-color: #ffffff;
   background-image: 
-    radial-gradient(at 40% 20%, rgba(14, 165, 233, 0.1) 0px, transparent 50%),
-    radial-gradient(at 80% 0%, rgba(217, 70, 239, 0.1) 0px, transparent 50%),
-    radial-gradient(at 0% 50%, rgba(14, 165, 233, 0.05) 0px, transparent 50%),
-    radial-gradient(at 80% 50%, rgba(217, 70, 239, 0.05) 0px, transparent 50%),
-    radial-gradient(at 0% 100%, rgba(14, 165, 233, 0.1) 0px, transparent 50%);
+    radial-gradient(at 40% 20%, rgba(236, 72, 153, 0.12) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, rgba(244, 63, 94, 0.12) 0px, transparent 50%),
+    radial-gradient(at 0% 50%, rgba(251, 207, 232, 0.25) 0px, transparent 50%),
+    radial-gradient(at 80% 50%, rgba(254, 205, 211, 0.2) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(252, 231, 243, 0.35) 0px, transparent 50%);
 }
+
 
 /* Service card hover effect */
 .service-card {
@@ -164,7 +191,7 @@ body {
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #0ea5e9, #d946ef);
+  background: linear-gradient(90deg, #ec4899, #f43f5e);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s ease;
@@ -174,4 +201,19 @@ body {
   transform: scaleX(1);
 }
 
+/* Shadow utilities */
+.shadow-soft {
+  box-shadow: 0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04);
+}
 
+.shadow-soft-lg {
+  box-shadow: 0 10px 40px -15px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-glow {
+  box-shadow: 0 0 20px rgba(236, 72, 153, 0.3);
+}
+
+.shadow-glow-accent {
+  box-shadow: 0 0 20px rgba(244, 63, 94, 0.3);
+}

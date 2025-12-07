@@ -49,8 +49,8 @@ export default function RefundPolicyPage() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
-          <div className="w-16 h-16 rounded-2xl bg-primary-50 flex items-center justify-center mx-auto mb-6">
-            <Shield className="w-8 h-8 text-primary-500" />
+          <div className="w-16 h-16 rounded-2xl bg-pink-50 flex items-center justify-center mx-auto mb-6">
+            <Shield className="w-8 h-8 text-pink-500" />
           </div>
           <h1 className="font-display text-4xl lg:text-5xl font-bold text-neutral-900 mb-4">
             Politika otkazivanja i povrata
@@ -117,8 +117,8 @@ export default function RefundPolicyPage() {
           
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center">
-              <div className="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center mx-auto mb-4">
-                <span className="text-primary-600 font-bold">1</span>
+              <div className="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center mx-auto mb-4">
+                <span className="text-pink-600 font-bold">1</span>
               </div>
               <h3 className="font-semibold text-neutral-900 mb-2">Otkazivanje</h3>
               <p className="text-neutral-500 text-sm">
@@ -127,8 +127,8 @@ export default function RefundPolicyPage() {
             </div>
             
             <div className="text-center">
-              <div className="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center mx-auto mb-4">
-                <span className="text-primary-600 font-bold">2</span>
+              <div className="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center mx-auto mb-4">
+                <span className="text-pink-600 font-bold">2</span>
               </div>
               <h3 className="font-semibold text-neutral-900 mb-2">Smart Contract</h3>
               <p className="text-neutral-500 text-sm">
@@ -137,8 +137,8 @@ export default function RefundPolicyPage() {
             </div>
             
             <div className="text-center">
-              <div className="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center mx-auto mb-4">
-                <span className="text-primary-600 font-bold">3</span>
+              <div className="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center mx-auto mb-4">
+                <span className="text-pink-600 font-bold">3</span>
               </div>
               <h3 className="font-semibold text-neutral-900 mb-2">Isplata</h3>
               <p className="text-neutral-500 text-sm">
@@ -153,7 +153,7 @@ export default function RefundPolicyPage() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="card bg-gradient-to-br from-primary-50 to-accent-50 mb-16"
+          className="card bg-gradient-to-br from-pink-50 to-rose-50 mb-16"
         >
           <h2 className="font-display text-2xl font-bold text-neutral-900 mb-6">
             Zašto je ovo dobro za sve?
@@ -167,15 +167,15 @@ export default function RefundPolicyPage() {
               </h3>
               <ul className="space-y-2 text-neutral-600">
                 <li className="flex items-start gap-2">
-                  <ArrowRight className="w-4 h-4 text-primary-500 mt-1 flex-shrink-0" />
+                  <ArrowRight className="w-4 h-4 text-pink-500 mt-1 flex-shrink-0" />
                   Transparentna pravila bez skrivenih naknada
                 </li>
                 <li className="flex items-start gap-2">
-                  <ArrowRight className="w-4 h-4 text-primary-500 mt-1 flex-shrink-0" />
+                  <ArrowRight className="w-4 h-4 text-pink-500 mt-1 flex-shrink-0" />
                   Automatski povrat bez čekanja
                 </li>
                 <li className="flex items-start gap-2">
-                  <ArrowRight className="w-4 h-4 text-primary-500 mt-1 flex-shrink-0" />
+                  <ArrowRight className="w-4 h-4 text-pink-500 mt-1 flex-shrink-0" />
                   Puni povrat kod pravovremenog otkazivanja
                 </li>
               </ul>
@@ -188,15 +188,15 @@ export default function RefundPolicyPage() {
               </h3>
               <ul className="space-y-2 text-neutral-600">
                 <li className="flex items-start gap-2">
-                  <ArrowRight className="w-4 h-4 text-primary-500 mt-1 flex-shrink-0" />
+                  <ArrowRight className="w-4 h-4 text-pink-500 mt-1 flex-shrink-0" />
                   Zaštita od kasnih otkazivanja i no-show
                 </li>
                 <li className="flex items-start gap-2">
-                  <ArrowRight className="w-4 h-4 text-primary-500 mt-1 flex-shrink-0" />
+                  <ArrowRight className="w-4 h-4 text-pink-500 mt-1 flex-shrink-0" />
                   Pravedna kompenzacija za izgubljeno vrijeme
                 </li>
                 <li className="flex items-start gap-2">
-                  <ArrowRight className="w-4 h-4 text-primary-500 mt-1 flex-shrink-0" />
+                  <ArrowRight className="w-4 h-4 text-pink-500 mt-1 flex-shrink-0" />
                   Automatska isplata na wallet
                 </li>
               </ul>
@@ -235,7 +235,7 @@ export default function RefundPolicyPage() {
             ].map((faq, index) => (
               <div key={index} className="card">
                 <h3 className="font-semibold text-neutral-900 mb-2 flex items-start gap-2">
-                  <AlertCircle className="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" />
+                  <AlertCircle className="w-5 h-5 text-pink-500 flex-shrink-0 mt-0.5" />
                   {faq.q}
                 </h3>
                 <p className="text-neutral-500 ml-7">{faq.a}</p>

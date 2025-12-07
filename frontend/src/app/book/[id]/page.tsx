@@ -4,7 +4,7 @@ import { useState, useMemo } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useWallet } from '@solana/wallet-adapter-react'
-import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
+import { WalletButton } from '@/components/ui/WalletButton'
 import { 
   Calendar, 
   Clock, 
@@ -162,7 +162,7 @@ export default function BookingPage() {
               <div className="flex items-center gap-4">
                 <div className={clsx(
                   'flex items-center gap-2 px-4 py-2 rounded-full font-medium transition-all',
-                  step >= 1 ? 'bg-primary-500 text-white' : 'bg-neutral-200 text-neutral-500'
+                  step >= 1 ? 'bg-pink-500 text-white' : 'bg-neutral-200 text-neutral-500'
                 )}>
                   <Calendar className="w-4 h-4" />
                   <span className="hidden sm:inline">Odaberi termin</span>
@@ -171,7 +171,7 @@ export default function BookingPage() {
                 <div className="h-px flex-grow bg-neutral-200" />
                 <div className={clsx(
                   'flex items-center gap-2 px-4 py-2 rounded-full font-medium transition-all',
-                  step >= 2 ? 'bg-primary-500 text-white' : 'bg-neutral-200 text-neutral-500'
+                  step >= 2 ? 'bg-pink-500 text-white' : 'bg-neutral-200 text-neutral-500'
                 )}>
                   <Wallet className="w-4 h-4" />
                   <span className="hidden sm:inline">Potvrdi i plati</span>
@@ -191,7 +191,7 @@ export default function BookingPage() {
                   {/* Date selection */}
                   <div className="card mb-6">
                     <h2 className="text-xl font-semibold text-neutral-900 mb-4 flex items-center gap-2">
-                      <Calendar className="w-5 h-5 text-primary-500" />
+                      <Calendar className="w-5 h-5 text-pink-500" />
                       Odaberite datum
                     </h2>
                     
@@ -203,7 +203,7 @@ export default function BookingPage() {
                           className={clsx(
                             'flex-shrink-0 w-20 py-3 rounded-xl text-center transition-all',
                             selectedDate && isSameDay(date, selectedDate)
-                              ? 'bg-primary-500 text-white shadow-glow'
+                              ? 'bg-pink-500 text-white shadow-glow'
                               : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
                           )}
                         >
@@ -229,7 +229,7 @@ export default function BookingPage() {
                       className="card"
                     >
                       <h2 className="text-xl font-semibold text-neutral-900 mb-4 flex items-center gap-2">
-                        <Clock className="w-5 h-5 text-primary-500" />
+                        <Clock className="w-5 h-5 text-pink-500" />
                         Odaberite vrijeme
                       </h2>
 
@@ -323,8 +323,8 @@ export default function BookingPage() {
                   <div className="card">
                     {!connected ? (
                       <div className="text-center py-8">
-                        <div className="w-16 h-16 rounded-full bg-primary-50 flex items-center justify-center mx-auto mb-4">
-                          <Wallet className="w-8 h-8 text-primary-500" />
+                        <div className="w-16 h-16 rounded-full bg-pink-50 flex items-center justify-center mx-auto mb-4">
+                          <Wallet className="w-8 h-8 text-pink-500" />
                         </div>
                         <h3 className="text-xl font-semibold text-neutral-900 mb-2">
                           Povežite wallet
@@ -332,7 +332,7 @@ export default function BookingPage() {
                         <p className="text-neutral-500 mb-6">
                           Povežite vaš Phantom wallet za dovršetak rezervacije
                         </p>
-                        <WalletMultiButton />
+                        <WalletButton />
                       </div>
                     ) : (
                       <>
@@ -346,9 +346,9 @@ export default function BookingPage() {
                           </div>
                         </div>
 
-                        <div className="flex items-start gap-3 p-4 bg-primary-50 rounded-xl mb-6">
-                          <Shield className="w-5 h-5 text-primary-600 flex-shrink-0 mt-0.5" />
-                          <div className="text-sm text-primary-800">
+                        <div className="flex items-start gap-3 p-4 bg-pink-50 rounded-xl mb-6">
+                          <Shield className="w-5 h-5 text-pink-600 flex-shrink-0 mt-0.5" />
+                          <div className="text-sm text-pink-800">
                             Vaša uplata bit će sigurno pohranjena u smart contractu do završetka usluge. 
                             U slučaju otkazivanja, automatski ćete dobiti povrat prema politici otkazivanja.
                           </div>
@@ -413,7 +413,7 @@ export default function BookingPage() {
 
               {/* Salon info */}
               <div className="flex items-center gap-3 p-3 bg-neutral-50 rounded-xl mb-4">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center">
                   <MapPin className="w-5 h-5 text-white" />
                 </div>
                 <div>
@@ -433,7 +433,7 @@ export default function BookingPage() {
               {/* Refund policy */}
               <div className="border-t border-neutral-100 pt-4">
                 <h3 className="font-medium text-neutral-900 mb-3 flex items-center gap-2">
-                  <AlertCircle className="w-4 h-4 text-primary-500" />
+                  <AlertCircle className="w-4 h-4 text-pink-500" />
                   Pravila otkazivanja
                 </h3>
                 <div className="space-y-2">

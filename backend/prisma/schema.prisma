@@ -1,4 +1,4 @@
-// Prisma schema for SolBook
+// Prisma schema for GlamBook
 
 generator client {
   provider = "prisma-client-js"

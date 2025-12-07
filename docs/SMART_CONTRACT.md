@@ -2,7 +2,7 @@
 
 ## Overview
 
-The SolBook smart contract is built using the Anchor framework for Solana. It handles:
+The GlamBook smart contract is built using the Anchor framework for Solana. It handles:
 
 1. **Platform Management** - Admin initialization and treasury
 2. **Salon Registration** - On-chain salon and service data

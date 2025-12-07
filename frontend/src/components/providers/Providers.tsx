@@ -35,5 +35,3 @@ export function Providers({ children }: ProvidersProps) {
     </ConnectionProvider>
   )
 }
-
-

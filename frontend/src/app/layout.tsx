@@ -6,11 +6,12 @@ import { Footer } from '@/components/layout/Footer'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'SolBook - Web3 Booking Platform',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
+  title: 'GlamBook - Web3 Booking Platform',
   description: 'Book salon services and pay with crypto. Powered by Solana.',
   keywords: ['booking', 'salon', 'crypto', 'solana', 'web3', 'haircut', 'nails'],
   openGraph: {
-    title: 'SolBook - Web3 Booking Platform',
+    title: 'GlamBook - Web3 Booking Platform',
     description: 'Book salon services and pay with crypto. Powered by Solana.',
     type: 'website',
   },
@@ -44,7 +45,7 @@ export default function RootLayout({
               },
               success: {
                 iconTheme: {
-                  primary: '#0ea5e9',
+                  primary: '#ec4899',
                   secondary: '#fff',
                 },
               },
@@ -61,5 +62,3 @@ export default function RootLayout({
     </html>
   )
 }
-
-

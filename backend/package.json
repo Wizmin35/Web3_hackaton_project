@@ -1,7 +1,7 @@
 {
-  "name": "solbook-backend",
+  "name": "glambook-backend",
   "version": "1.0.0",
-  "description": "SolBook Backend API",
+  "description": "GlamBook Backend API",
   "main": "dist/index.js",
   "scripts": {
     "dev": "tsx watch src/index.ts",

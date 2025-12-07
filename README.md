@@ -1,4 +1,4 @@
-# 🌟 SolBook - Web3 Booking Platform
+# 🌟 GlamBook - Web3 Booking Platform
 
 <div align="center">
   <img src="https://img.shields.io/badge/Solana-Devnet-9945FF?style=for-the-badge&logo=solana" />

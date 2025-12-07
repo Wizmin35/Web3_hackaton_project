@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useWallet } from '@solana/wallet-adapter-react'
-import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
+import { WalletButton } from '@/components/ui/WalletButton'
 import Link from 'next/link'
 import { 
   Calendar, 
@@ -150,8 +150,8 @@ export default function ReservationsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <div className="w-20 h-20 rounded-full bg-primary-50 flex items-center justify-center mx-auto mb-6">
-              <Wallet className="w-10 h-10 text-primary-500" />
+            <div className="w-20 h-20 rounded-full bg-pink-50 flex items-center justify-center mx-auto mb-6">
+              <Wallet className="w-10 h-10 text-pink-500" />
             </div>
             <h1 className="font-display text-3xl font-bold text-neutral-900 mb-4">
               Povežite wallet
@@ -159,7 +159,7 @@ export default function ReservationsPage() {
             <p className="text-neutral-500 mb-8">
               Povežite vaš Phantom wallet za pregled rezervacija
             </p>
-            <WalletMultiButton />
+            <WalletButton />
           </motion.div>
         </div>
       </div>
@@ -259,7 +259,7 @@ export default function ReservationsPage() {
                           href={`https://explorer.solana.com/tx/${reservation.transactionHash}?cluster=devnet`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 mt-2 text-xs text-primary-600 hover:text-primary-700"
+                          className="inline-flex items-center gap-1 mt-2 text-xs text-pink-600 hover:text-pink-700"
                         >
                           <span className="font-mono">{reservation.transactionHash.slice(0, 16)}...</span>
                           <ExternalLink className="w-3 h-3" />

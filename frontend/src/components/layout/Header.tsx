@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
+import { WalletButton } from '../ui/WalletButton'
 import { useWallet } from '@solana/wallet-adapter-react'
 import { Menu, X, Sparkles, Calendar, Store, User } from 'lucide-react'
 import clsx from 'clsx'
@@ -17,7 +17,7 @@ const navLinks = [
 
 export function Header() {
   const pathname = usePathname()
-  const { connected, publicKey } = useWallet()
+  const { connected } = useWallet()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
@@ -33,18 +33,20 @@ export function Header() {
     <header
       className={clsx(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-        isScrolled ? 'bg-white/80 backdrop-blur-lg shadow-soft' : 'bg-transparent'
+        isScrolled 
+          ? 'bg-white/95 backdrop-blur-lg shadow-soft' 
+          : 'bg-transparent'
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center shadow-glow group-hover:scale-105 transition-transform">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center shadow-glow group-hover:scale-105 transition-transform">
               <Sparkles className="w-5 h-5 text-white" />
             </div>
             <span className="font-display text-2xl font-bold gradient-text">
-              SolBook
+              GlamBook
             </span>
           </Link>
 
@@ -60,8 +62,8 @@ export function Header() {
                   className={clsx(
                     'flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all duration-200',
                     isActive
-                      ? 'bg-primary-50 text-primary-600'
-                      : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100'
+                      ? 'bg-pink-50 text-pink-600'
+                      : 'text-neutral-900 hover:text-neutral-900 hover:bg-neutral-100'
                   )}
                 >
                   <Icon className="w-4 h-4" />
@@ -72,12 +74,12 @@ export function Header() {
           </nav>
 
           {/* Right side - Wallet & Menu */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             {/* Dashboard link for connected users */}
             {connected && (
               <Link
                 href="/dashboard"
-                className="hidden md:flex items-center gap-2 px-4 py-2 rounded-xl font-medium text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100 transition-all"
+                className="hidden md:flex items-center gap-2 px-4 py-2 rounded-xl font-medium text-neutral-900 hover:text-neutral-900 hover:bg-neutral-100 transition-all"
               >
                 <User className="w-4 h-4" />
                 Dashboard
@@ -86,13 +88,13 @@ export function Header() {
 
             {/* Wallet Button */}
             <div className="hidden sm:block">
-              <WalletMultiButton />
+              <WalletButton />
             </div>
 
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 rounded-xl text-neutral-600 hover:bg-neutral-100 transition-colors"
+              className="md:hidden p-2 rounded-xl text-neutral-900 hover:bg-neutral-100 transition-colors"
             >
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -121,8 +123,8 @@ export function Header() {
                     className={clsx(
                       'flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all',
                       isActive
-                        ? 'bg-primary-50 text-primary-600'
-                        : 'text-neutral-600 hover:bg-neutral-50'
+                        ? 'bg-pink-50 text-pink-600'
+                        : 'text-neutral-900 hover:bg-neutral-50'
                     )}
                   >
                     <Icon className="w-5 h-5" />
@@ -135,7 +137,7 @@ export function Header() {
                 <Link
                   href="/dashboard"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-neutral-600 hover:bg-neutral-50 transition-all"
+                  className="flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-neutral-900 hover:bg-neutral-50 transition-all"
                 >
                   <User className="w-5 h-5" />
                   Dashboard
@@ -143,7 +145,7 @@ export function Header() {
               )}
 
               <div className="pt-2">
-                <WalletMultiButton />
+                <WalletButton />
               </div>
             </nav>
           </motion.div>
@@ -152,5 +154,3 @@ export function Header() {
     </header>
   )
 }
-
-

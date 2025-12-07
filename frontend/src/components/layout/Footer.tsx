@@ -11,14 +11,14 @@ export function Footer() {
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
             <Link href="/" className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center">
                 <Sparkles className="w-5 h-5 text-white" />
               </div>
               <span className="font-display text-2xl font-bold gradient-text">
-                SolBook
+                GlamBook
               </span>
             </Link>
-            <p className="text-neutral-500 max-w-sm">
+            <p className="text-neutral-600 max-w-sm">
               Budućnost rezervacija. Rezervirajte frizerske i kozmetičke usluge 
               i plaćajte kriptovalutama na Solana blockchainu.
             </p>
@@ -27,19 +27,19 @@ export function Footer() {
             <div className="flex items-center gap-4 mt-6">
               <a
                 href="#"
-                className="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center text-neutral-500 hover:bg-primary-50 hover:text-primary-600 transition-all"
+                className="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center text-neutral-500 hover:bg-pink-50 hover:text-pink-600 transition-all"
               >
                 <Twitter className="w-5 h-5" />
               </a>
               <a
                 href="#"
-                className="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center text-neutral-500 hover:bg-primary-50 hover:text-primary-600 transition-all"
+                className="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center text-neutral-500 hover:bg-pink-50 hover:text-pink-600 transition-all"
               >
                 <Github className="w-5 h-5" />
               </a>
               <a
-                href="mailto:info@solbook.hr"
-                className="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center text-neutral-500 hover:bg-primary-50 hover:text-primary-600 transition-all"
+                href="mailto:info@glambook.hr"
+                className="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center text-neutral-500 hover:bg-pink-50 hover:text-pink-600 transition-all"
               >
                 <Mail className="w-5 h-5" />
               </a>
@@ -51,22 +51,22 @@ export function Footer() {
             <h4 className="font-semibold text-neutral-900 mb-4">Brzi linkovi</h4>
             <ul className="space-y-3">
               <li>
-                <Link href="/services" className="text-neutral-500 hover:text-primary-600 transition-colors">
+                <Link href="/services" className="text-neutral-600 hover:text-pink-600 transition-colors">
                   Usluge
                 </Link>
               </li>
               <li>
-                <Link href="/salons" className="text-neutral-500 hover:text-primary-600 transition-colors">
+                <Link href="/salons" className="text-neutral-600 hover:text-pink-600 transition-colors">
                   Saloni
                 </Link>
               </li>
               <li>
-                <Link href="/reservations" className="text-neutral-500 hover:text-primary-600 transition-colors">
+                <Link href="/reservations" className="text-neutral-600 hover:text-pink-600 transition-colors">
                   Moje rezervacije
                 </Link>
               </li>
               <li>
-                <Link href="/dashboard" className="text-neutral-500 hover:text-primary-600 transition-colors">
+                <Link href="/dashboard" className="text-neutral-600 hover:text-pink-600 transition-colors">
                   Dashboard
                 </Link>
               </li>
@@ -78,22 +78,22 @@ export function Footer() {
             <h4 className="font-semibold text-neutral-900 mb-4">Informacije</h4>
             <ul className="space-y-3">
               <li>
-                <Link href="/about" className="text-neutral-500 hover:text-primary-600 transition-colors">
+                <Link href="/about" className="text-neutral-600 hover:text-pink-600 transition-colors">
                   O nama
                 </Link>
               </li>
               <li>
-                <Link href="/refund-policy" className="text-neutral-500 hover:text-primary-600 transition-colors">
+                <Link href="/refund-policy" className="text-neutral-600 hover:text-pink-600 transition-colors">
                   Pravila otkazivanja
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" className="text-neutral-500 hover:text-primary-600 transition-colors">
+                <Link href="/privacy" className="text-neutral-600 hover:text-pink-600 transition-colors">
                   Privatnost
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="text-neutral-500 hover:text-primary-600 transition-colors">
+                <Link href="/terms" className="text-neutral-600 hover:text-pink-600 transition-colors">
                   Uvjeti korištenja
                 </Link>
               </li>
@@ -103,12 +103,12 @@ export function Footer() {
 
         {/* Bottom */}
         <div className="mt-12 pt-8 border-t border-neutral-100 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-neutral-400 text-sm">
-            © 2024 SolBook. Sva prava pridržana.
+          <p className="text-neutral-500 text-sm">
+            © 2024 GlamBook. Sva prava pridržana.
           </p>
-          <div className="flex items-center gap-2 text-sm text-neutral-400">
-            <span>Pokreće</span>
-            <span className="font-semibold text-neutral-600">Solana</span>
+          <div className="flex items-center gap-2 text-sm text-neutral-500">
+            <span>Powered by</span>
+            <span className="font-semibold text-neutral-700">Solana</span>
             <div className="w-5 h-5 rounded-full bg-gradient-to-r from-[#9945FF] to-[#14F195]" />
           </div>
         </div>
@@ -116,5 +116,3 @@ export function Footer() {
     </footer>
   )
 }
-
-

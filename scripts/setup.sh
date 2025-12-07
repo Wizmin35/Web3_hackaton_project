@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# SolBook Setup Script
+# GlamBook Setup Script
 # This script sets up the entire project for development
 
 set -e
 
-echo "🚀 SolBook Setup Script"
+echo "🚀 GlamBook Setup Script"
 echo "========================"
 
 # Colors

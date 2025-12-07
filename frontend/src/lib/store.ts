@@ -32,7 +32,7 @@ export const useUserStore = create<UserState>()(
       }),
     }),
     {
-      name: 'solbook-user',
+      name: 'glambook-user',
     }
   )
 );

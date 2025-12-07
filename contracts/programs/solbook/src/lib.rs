@@ -42,8 +42,8 @@ pub mod solbook {
         name: String,
         services: Vec<ServiceInput>,
     ) -> Result<()> {
-        require!(name.len() <= 64, SolBookError::NameTooLong);
-        require!(services.len() <= 10, SolBookError::TooManyServices);
+        require!(name.len() <= 64, GlamBookError::NameTooLong);
+        require!(services.len() <= 10, GlamBookError::TooManyServices);
 
         let salon = &mut ctx.accounts.salon;
         salon.owner = ctx.accounts.owner.key();
@@ -86,7 +86,7 @@ pub mod solbook {
         // Validate appointment time is in the future
         require!(
             appointment_time > clock.unix_timestamp,
-            SolBookError::InvalidAppointmentTime
+            GlamBookError::InvalidAppointmentTime
         );
 
         // Find the service and get its price
@@ -94,7 +94,7 @@ pub mod solbook {
             .services
             .iter()
             .find(|s| s.id == service_id && s.is_active)
-            .ok_or(SolBookError::ServiceNotFound)?;
+            .ok_or(GlamBookError::ServiceNotFound)?;
 
         let amount = service.price_lamports;
 
@@ -150,13 +150,13 @@ pub mod solbook {
         // Only client can cancel their own reservation
         require!(
             ctx.accounts.client.key() == reservation.client,
-            SolBookError::UnauthorizedCancellation
+            GlamBookError::UnauthorizedCancellation
         );
 
         // Can only cancel confirmed reservations
         require!(
             reservation.status == ReservationStatus::Confirmed,
-            SolBookError::InvalidReservationStatus
+            GlamBookError::InvalidReservationStatus
         );
 
         let time_until_appointment = reservation.appointment_time - clock.unix_timestamp;
@@ -213,19 +213,19 @@ pub mod solbook {
         // Only salon owner can complete
         require!(
             ctx.accounts.salon_owner.key() == reservation.salon_owner,
-            SolBookError::UnauthorizedCompletion
+            GlamBookError::UnauthorizedCompletion
         );
 
         // Must be confirmed status
         require!(
             reservation.status == ReservationStatus::Confirmed,
-            SolBookError::InvalidReservationStatus
+            GlamBookError::InvalidReservationStatus
         );
 
         // Can only complete after appointment time
         require!(
             clock.unix_timestamp >= reservation.appointment_time,
-            SolBookError::AppointmentNotYetDue
+            GlamBookError::AppointmentNotYetDue
         );
 
         let amount = reservation.amount;
@@ -264,19 +264,19 @@ pub mod solbook {
         // Only salon owner can mark no-show
         require!(
             ctx.accounts.salon_owner.key() == reservation.salon_owner,
-            SolBookError::UnauthorizedNoShow
+            GlamBookError::UnauthorizedNoShow
         );
 
         // Must be confirmed status
         require!(
             reservation.status == ReservationStatus::Confirmed,
-            SolBookError::InvalidReservationStatus
+            GlamBookError::InvalidReservationStatus
         );
 
         // Can only mark no-show after appointment time + 15 min grace period
         require!(
             clock.unix_timestamp >= reservation.appointment_time + (15 * 60),
-            SolBookError::TooEarlyForNoShow
+            GlamBookError::TooEarlyForNoShow
         );
 
         let amount = reservation.amount;
@@ -420,7 +420,7 @@ pub struct CancelReservation<'info> {
             &reservation.appointment_time.to_le_bytes()
         ],
         bump = reservation.bump,
-        constraint = reservation.client == client.key() @ SolBookError::UnauthorizedCancellation
+        constraint = reservation.client == client.key() @ GlamBookError::UnauthorizedCancellation
     )]
     pub reservation: Account<'info, Reservation>,
     
@@ -430,7 +430,7 @@ pub struct CancelReservation<'info> {
     /// CHECK: Validated against reservation.salon_owner
     #[account(
         mut,
-        constraint = salon_owner.key() == reservation.salon_owner @ SolBookError::InvalidSalonOwner
+        constraint = salon_owner.key() == reservation.salon_owner @ GlamBookError::InvalidSalonOwner
     )]
     pub salon_owner: AccountInfo<'info>,
     
@@ -443,7 +443,7 @@ pub struct CancelReservation<'info> {
     /// CHECK: Validated against platform.treasury_wallet
     #[account(
         mut,
-        constraint = treasury.key() == platform.treasury_wallet @ SolBookError::InvalidTreasury
+        constraint = treasury.key() == platform.treasury_wallet @ GlamBookError::InvalidTreasury
     )]
     pub treasury: AccountInfo<'info>,
     
@@ -473,7 +473,7 @@ pub struct CompleteReservation<'info> {
     
     #[account(
         mut,
-        constraint = salon_owner.key() == reservation.salon_owner @ SolBookError::UnauthorizedCompletion
+        constraint = salon_owner.key() == reservation.salon_owner @ GlamBookError::UnauthorizedCompletion
     )]
     pub salon_owner: Signer<'info>,
     
@@ -486,7 +486,7 @@ pub struct CompleteReservation<'info> {
     /// CHECK: Validated against platform.treasury_wallet
     #[account(
         mut,
-        constraint = treasury.key() == platform.treasury_wallet @ SolBookError::InvalidTreasury
+        constraint = treasury.key() == platform.treasury_wallet @ GlamBookError::InvalidTreasury
     )]
     pub treasury: AccountInfo<'info>,
     
@@ -516,7 +516,7 @@ pub struct MarkNoShow<'info> {
     
     #[account(
         mut,
-        constraint = salon_owner.key() == reservation.salon_owner @ SolBookError::UnauthorizedNoShow
+        constraint = salon_owner.key() == reservation.salon_owner @ GlamBookError::UnauthorizedNoShow
     )]
     pub salon_owner: Signer<'info>,
     
@@ -529,7 +529,7 @@ pub struct MarkNoShow<'info> {
     /// CHECK: Validated against platform.treasury_wallet
     #[account(
         mut,
-        constraint = treasury.key() == platform.treasury_wallet @ SolBookError::InvalidTreasury
+        constraint = treasury.key() == platform.treasury_wallet @ GlamBookError::InvalidTreasury
     )]
     pub treasury: AccountInfo<'info>,
     
@@ -666,7 +666,7 @@ pub struct ReservationNoShow {
 // ============== ERRORS ==============
 
 #[error_code]
-pub enum SolBookError {
+pub enum GlamBookError {
     #[msg("Name exceeds maximum length of 64 characters")]
     NameTooLong,
     #[msg("Maximum 10 services allowed per salon")]

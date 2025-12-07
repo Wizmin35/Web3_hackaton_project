@@ -11,7 +11,7 @@ export interface AuthenticatedRequest extends Request {
 const nonceStore = new Map<string, { nonce: string; expires: number }>();
 
 export const generateNonce = (walletAddress: string): string => {
-  const nonce = `SolBook authentication: ${Date.now()}-${Math.random().toString(36).substring(7)}`;
+  const nonce = `GlamBook authentication: ${Date.now()}-${Math.random().toString(36).substring(7)}`;
   nonceStore.set(walletAddress, {
     nonce,
     expires: Date.now() + 5 * 60 * 1000, // 5 minutes

@@ -9,7 +9,7 @@ async function main() {
   const provider = anchor.AnchorProvider.env();
   anchor.setProvider(provider);
 
-  console.log("🚀 Deploying SolBook to", provider.connection.rpcEndpoint);
+  console.log("🚀 Deploying GlamBook to", provider.connection.rpcEndpoint);
   console.log("📝 Using wallet:", provider.wallet.publicKey.toBase58());
 
   // Get wallet balance

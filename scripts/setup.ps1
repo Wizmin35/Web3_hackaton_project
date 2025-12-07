@@ -1,9 +1,9 @@
-# SolBook Setup Script for Windows PowerShell
+# GlamBook Setup Script for Windows PowerShell
 # This script sets up the entire project for development
 
 $ErrorActionPreference = "Stop"
 
-Write-Host "`n🚀 SolBook Setup Script" -ForegroundColor Cyan
+Write-Host "`n🚀 GlamBook Setup Script" -ForegroundColor Cyan
 Write-Host "========================" -ForegroundColor Cyan
 
 # Function to check if command exists

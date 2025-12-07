@@ -205,7 +205,7 @@ export default function SalonsPage() {
                   {/* Content */}
                   <div className="p-6">
                     <div className="flex items-start justify-between gap-2 mb-2">
-                      <h3 className="text-xl font-semibold text-neutral-900 group-hover:text-primary-600 transition-colors">
+                      <h3 className="text-xl font-semibold text-neutral-900 group-hover:text-pink-600 transition-colors">
                         {salon.name}
                       </h3>
                       <span className="text-neutral-500 font-medium">{salon.priceRange}</span>
@@ -232,7 +232,7 @@ export default function SalonsPage() {
                         </span>
                       ))}
                       {salon.services.length > 3 && (
-                        <span className="px-3 py-1 bg-primary-50 text-primary-600 text-xs rounded-full">
+                        <span className="px-3 py-1 bg-pink-50 text-pink-600 text-xs rounded-full">
                           +{salon.services.length - 3}
                         </span>
                       )}
