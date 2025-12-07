@@ -6,9 +6,9 @@
   <img src="https://img.shields.io/badge/Rust-Anchor-DEA584?style=for-the-badge&logo=rust" />
   <img src="https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript" />
 </div>
-
+<br>
 <div>
-  Sudionici ovog projekta: Katica Anerić, Magdalena Dilber i Filip Brkljača
+  People involved in this project: Katica Anerić, Magdalena Dilber i Filip Brkljača
 </div>
 
 <br />
