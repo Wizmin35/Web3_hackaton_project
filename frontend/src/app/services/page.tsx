@@ -10,127 +10,218 @@ import {
   Search,
   Filter,
   Star,
-  MapPin
+  MapPin,
+  ChevronRight
 } from 'lucide-react'
 import clsx from 'clsx'
 
 const categories = [
-  { id: 'all', name: 'Sve', icon: Sparkles },
-  { id: 'haircut', name: 'Šišanje', icon: Scissors },
-  { id: 'nails', name: 'Nokti', icon: Sparkles },
-  { id: 'styling', name: 'Styling', icon: Scissors },
-  { id: 'coloring', name: 'Bojanje', icon: Sparkles },
+  { id: 'haircut', name: 'Šišanje', icon: Scissors, description: 'Muško i žensko šišanje' },
+  { id: 'nails', name: 'Nokti', icon: Sparkles, description: 'Manikura, pedikura i gel lakiranje' },
+  { id: 'styling', name: 'Styling', icon: Scissors, description: 'Frizure za svečanosti i styling' },
+  { id: 'coloring', name: 'Bojanje', icon: Sparkles, description: 'Bojanje kose, pramenovi i balayage' },
 ]
 
-const services = [
-  {
-    id: '1',
-    name: 'Muško šišanje',
-    description: 'Klasično muško šišanje s pranjem kose i stiliziranjem',
-    category: 'haircut',
-    price: '0.1 SOL',
-    priceEur: '~20€',
-    duration: 30,
-    salon: { name: 'Studio Hair', city: 'Zagreb', rating: 4.9 },
-    image: 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400',
-    popular: true,
+// Salons grouped by category
+const salonsByCategory = {
+  haircut: [
+    {
+      id: '1',
+      name: 'Studio Hair',
+      description: 'Moderni frizerski salon s vrhunskim majstorima i najnovijim tehnikama',
+      address: 'Ilica 50',
+      city: 'Zagreb',
+      rating: 4.9,
+      reviewCount: 124,
+      image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=600',
+      services: ['Muško šišanje', 'Žensko šišanje'],
+      openNow: true,
+      priceRange: '€€',
+    },
+    {
+      id: '2',
+      name: 'Beauty Lounge',
+      description: 'Luksuzni salon za njegu kose i noktiju u srcu grada',
+      address: 'Riva 12',
+      city: 'Split',
+      rating: 4.8,
+      reviewCount: 89,
+      image: 'https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?w=600',
+      services: ['Žensko šišanje', 'Styling'],
+      openNow: true,
+      priceRange: '€€€',
+    },
+    {
+      id: '5',
+      name: 'Hair Boutique',
+      description: 'Ekskluzivni salon s personaliziranim pristupom svakom klijentu',
+      address: 'Tkalčićeva 25',
+      city: 'Zagreb',
+      rating: 4.9,
+      reviewCount: 98,
+      image: 'https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=600',
+      services: ['Muško šišanje', 'Žensko šišanje', 'Styling'],
+      openNow: true,
+      priceRange: '€€€',
+    },
+  ],
+  nails: [
+    {
+      id: '3',
+      name: 'Nail Art Studio',
+      description: 'Specijalizirani salon za umjetnost na noktima i gel tehnike',
+      address: 'Vlaška 90',
+      city: 'Zagreb',
+      rating: 5.0,
+      reviewCount: 67,
+      image: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600',
+      services: ['Gel lakiranje', 'Manikura', 'Pedikura'],
+      openNow: false,
+      priceRange: '€€',
+    },
+    {
+      id: '2',
+      name: 'Beauty Lounge',
+      description: 'Luksuzni salon za njegu kose i noktiju u srcu grada',
+      address: 'Riva 12',
+      city: 'Split',
+      rating: 4.8,
+      reviewCount: 89,
+      image: 'https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?w=600',
+      services: ['Manikura', 'Pedikura'],
+      openNow: true,
+      priceRange: '€€€',
+    },
+  ],
+  styling: [
+    {
+      id: '6',
+      name: 'Glamour Salon',
+      description: 'Profesionalni tim za frizure za svečanosti i vjenčanja',
+      address: 'Europska avenija 8',
+      city: 'Osijek',
+      rating: 4.6,
+      reviewCount: 43,
+      image: 'https://images.unsplash.com/photo-1600948836101-f9ffda59d250?w=600',
+      services: ['Frizura za svečanost', 'Styling'],
+      openNow: false,
+      priceRange: '€€',
+    },
+    {
+      id: '2',
+      name: 'Beauty Lounge',
+      description: 'Luksuzni salon za njegu kose i noktiju u srcu grada',
+      address: 'Riva 12',
+      city: 'Split',
+      rating: 4.8,
+      reviewCount: 89,
+      image: 'https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?w=600',
+      services: ['Styling', 'Frizure za svečanost'],
+      openNow: true,
+      priceRange: '€€€',
+    },
+    {
+      id: '5',
+      name: 'Hair Boutique',
+      description: 'Ekskluzivni salon s personaliziranim pristupom svakom klijentu',
+      address: 'Tkalčićeva 25',
+      city: 'Zagreb',
+      rating: 4.9,
+      reviewCount: 98,
+      image: 'https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=600',
+      services: ['Styling', 'Frizure za svečanost'],
+      openNow: true,
+      priceRange: '€€€',
+    },
+  ],
+  coloring: [
+    {
+      id: '4',
+      name: 'Color Studio',
+      description: 'Eksperti za bojanje kose i moderne tehnike kao balayage i ombre',
+      address: 'Korzo 15',
+      city: 'Rijeka',
+      rating: 4.7,
+      reviewCount: 52,
+      image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600',
+      services: ['Pramenovi', 'Balayage', 'Bojanje'],
+      openNow: true,
+      priceRange: '€€€',
+    },
+    {
+      id: '5',
+      name: 'Hair Boutique',
+      description: 'Ekskluzivni salon s personaliziranim pristupom svakom klijentu',
+      address: 'Tkalčićeva 25',
+      city: 'Zagreb',
+      rating: 4.9,
+      reviewCount: 98,
+      image: 'https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=600',
+      services: ['Balayage', 'Pramenovi'],
+      openNow: true,
+      priceRange: '€€€',
+    },
+  ],
+}
+
+// Service mapping for booking
+const serviceMapping: Record<string, Record<string, string>> = {
+  '1': { // Studio Hair
+    'Muško šišanje': '1',
+    'Žensko šišanje': '2',
   },
-  {
-    id: '2',
-    name: 'Žensko šišanje',
-    description: 'Profesionalno žensko šišanje i oblikovanje frizure',
-    category: 'haircut',
-    price: '0.15 SOL',
-    priceEur: '~30€',
-    duration: 45,
-    salon: { name: 'Beauty Lounge', city: 'Split', rating: 4.8 },
-    image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400',
-    popular: true,
+  '2': { // Beauty Lounge
+    'Žensko šišanje': '2',
+    'Manikura': '4',
+    'Pedikura': '8',
+    'Styling': '7',
   },
-  {
-    id: '3',
-    name: 'Gel lakiranje',
-    description: 'Trajno gel lakiranje noktiju s pripremom i oblikovanjem',
-    category: 'nails',
-    price: '0.12 SOL',
-    priceEur: '~25€',
-    duration: 60,
-    salon: { name: 'Nail Art Studio', city: 'Zagreb', rating: 5.0 },
-    image: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=400',
-    popular: true,
+  '3': { // Nail Art Studio
+    'Gel lakiranje': '3',
+    'Manikura': '4',
+    'Pedikura': '8',
   },
-  {
-    id: '4',
-    name: 'Manikura',
-    description: 'Kompletna njega noktiju s lakiranjem po izboru',
-    category: 'nails',
-    price: '0.08 SOL',
-    priceEur: '~15€',
-    duration: 30,
-    salon: { name: 'Nail Art Studio', city: 'Zagreb', rating: 5.0 },
-    image: 'https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=400',
-    popular: false,
+  '4': { // Color Studio
+    'Pramenovi': '5',
+    'Balayage': '6',
+    'Bojanje': '6',
   },
-  {
-    id: '5',
-    name: 'Pramenovi',
-    description: 'Profesionalni pramenovi s kvalitetnim bojama',
-    category: 'coloring',
-    price: '0.3 SOL',
-    priceEur: '~60€',
-    duration: 120,
-    salon: { name: 'Color Studio', city: 'Rijeka', rating: 4.7 },
-    image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400',
-    popular: false,
+  '5': { // Hair Boutique
+    'Muško šišanje': '1',
+    'Žensko šišanje': '2',
+    'Styling': '7',
+    'Balayage': '6',
+    'Pramenovi': '5',
   },
-  {
-    id: '6',
-    name: 'Balayage',
-    description: 'Moderna tehnika bojanja za prirodan izgled',
-    category: 'coloring',
-    price: '0.4 SOL',
-    priceEur: '~80€',
-    duration: 150,
-    salon: { name: 'Hair Boutique', city: 'Zagreb', rating: 4.9 },
-    image: 'https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=400',
-    popular: true,
+  '6': { // Glamour Salon
+    'Frizura za svečanost': '7',
+    'Styling': '7',
   },
-  {
-    id: '7',
-    name: 'Frizura za svečanost',
-    description: 'Elegantna frizura za posebne prigode',
-    category: 'styling',
-    price: '0.25 SOL',
-    priceEur: '~50€',
-    duration: 60,
-    salon: { name: 'Glamour Salon', city: 'Osijek', rating: 4.6 },
-    image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400',
-    popular: false,
-  },
-  {
-    id: '8',
-    name: 'Pedikura',
-    description: 'Profesionalna pedikura s masažom stopala',
-    category: 'nails',
-    price: '0.1 SOL',
-    priceEur: '~20€',
-    duration: 45,
-    salon: { name: 'Nail Art Studio', city: 'Zagreb', rating: 5.0 },
-    image: 'https://images.unsplash.com/photo-1519014816548-bf5fe059798b?w=400',
-    popular: false,
-  },
-]
+}
 
 export default function ServicesPage() {
-  const [searchQuery, setSearchQuery] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState('all')
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
 
-  const filteredServices = services.filter(service => {
-    const matchesSearch = service.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         service.description.toLowerCase().includes(searchQuery.toLowerCase())
-    const matchesCategory = selectedCategory === 'all' || service.category === selectedCategory
-    return matchesSearch && matchesCategory
-  })
+  const handleSalonClick = (salonId: string, serviceName: string) => {
+    // Find the service ID from mapping
+    const serviceId = serviceMapping[salonId]?.[serviceName]
+    if (serviceId) {
+      // Store salon info and selected service in sessionStorage for booking page
+      const salon = salonsByCategory[selectedCategory as keyof typeof salonsByCategory]?.find(s => s.id === salonId)
+      if (salon) {
+        const salonData = {
+          id: salon.id,
+          name: salon.name,
+          address: salon.address,
+          city: salon.city,
+          selectedService: serviceName, // Store the selected service name
+        }
+        sessionStorage.setItem('selectedSalon', JSON.stringify(salonData))
+      }
+      // Navigate to booking page with salon ID and service name
+      window.location.href = `/book/${serviceId}?salon=${salonId}&service=${encodeURIComponent(serviceName)}`
+    }
+  }
 
   return (
     <div className="min-h-screen pt-28 pb-20 bg-white">
@@ -142,135 +233,181 @@ export default function ServicesPage() {
           className="text-center mb-12"
         >
           <h1 className="font-display text-4xl lg:text-5xl font-bold text-neutral-900 mb-4">
-            Pronađite savršenu uslugu
+            Odaberite opciju i salon
           </h1>
           <p className="text-xl text-neutral-600 max-w-2xl mx-auto">
-            Pregledajte sve dostupne usluge i rezervirajte termin koji vam odgovara
+            Pronađite salon koji nudi uslugu koju tražite i rezervirajte termin
           </p>
         </motion.div>
 
-        {/* Search & Filters */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="mb-12"
-        >
-          {/* Search */}
-          <div className="relative max-w-2xl mx-auto mb-8">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-900" />
-            <input
-              type="text"
-              placeholder="Pretraži usluge..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="input-field pl-12 text-lg"
-            />
-          </div>
-
-          {/* Category filters */}
-          <div className="flex flex-wrap justify-center gap-3">
-            {categories.map((category) => {
+        {/* Category Options */}
+        {!selectedCategory && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12"
+          >
+            {categories.map((category, index) => {
               const Icon = category.icon
               return (
-                <button
+                <motion.button
                   key={category.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
                   onClick={() => setSelectedCategory(category.id)}
-                  className={clsx(
-                    'flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium transition-all duration-200',
-                    selectedCategory === category.id
-                      ? 'bg-pink-500 text-neutral-900 shadow-glow'
-                      : 'bg-white text-neutral-900 border border-pink-200 hover:border-pink-300 hover:text-pink-600'
-                  )}
+                  className="card group cursor-pointer hover:shadow-soft-lg transition-all text-left"
                 >
-                  <Icon className="w-4 h-4" />
-                  {category.name}
-                </button>
+                  <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <Icon className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-neutral-900 mb-2 group-hover:text-pink-600 transition-colors">
+                    {category.name}
+                  </h3>
+                  <p className="text-neutral-500 text-sm mb-4">
+                    {category.description}
+                  </p>
+                  <div className="flex items-center gap-2 text-pink-600 font-medium">
+                    <span>Pregledaj salone</span>
+                    <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </motion.button>
               )
             })}
-          </div>
-        </motion.div>
+          </motion.div>
+        )}
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredServices.map((service, index) => (
-            <motion.div
-              key={service.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.05 }}
+        {/* Salons for selected category */}
+        {selectedCategory && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+          >
+            {/* Back button */}
+            <button
+              onClick={() => setSelectedCategory(null)}
+              className="flex items-center gap-2 text-neutral-600 hover:text-neutral-900 mb-8 transition-colors"
             >
-              <Link href={`/book/${service.id}`}>
-                <div className="card service-card group cursor-pointer h-full overflow-hidden p-0">
+              <ChevronRight className="w-5 h-5 rotate-180" />
+              Natrag na opcije
+            </button>
+
+            {/* Category header */}
+            <div className="mb-8">
+              {(() => {
+                const category = categories.find(c => c.id === selectedCategory)
+                const Icon = category?.icon
+                return (
+                  <div className="flex items-center gap-4">
+                    {Icon && (
+                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center">
+                        <Icon className="w-6 h-6 text-white" />
+                      </div>
+                    )}
+                    <div>
+                      <h2 className="text-3xl font-bold text-neutral-900">{category?.name}</h2>
+                      <p className="text-neutral-500">{category?.description}</p>
+                    </div>
+                  </div>
+                )
+              })()}
+            </div>
+
+            {/* Salons Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {salonsByCategory[selectedCategory as keyof typeof salonsByCategory]?.map((salon, index) => (
+                <motion.div
+                  key={salon.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="card group cursor-pointer h-full overflow-hidden p-0"
+                >
                   {/* Image */}
-                  <div className="relative h-48 overflow-hidden">
+                  <div className="relative h-56 overflow-hidden">
                     <img
-                      src={service.image}
-                      alt={service.name}
+                      src={salon.image}
+                      alt={salon.name}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
-                    {service.popular && (
-                      <span className="absolute top-3 right-3 px-3.5 py-1.5 bg-gradient-to-r from-pink-500 to-rose-500 text-neutral-900 text-xs font-bold rounded-full z-20 shadow-xl border-2 border-white">
-                        Popularno
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                    
+                    {/* Status badge */}
+                    <div className="absolute top-4 left-4">
+                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                        salon.openNow 
+                          ? 'bg-green-500 text-white' 
+                          : 'bg-neutral-800 text-white'
+                      }`}>
+                        {salon.openNow ? 'Otvoreno' : 'Zatvoreno'}
                       </span>
-                    )}
+                    </div>
+
+                    {/* Rating */}
+                    <div className="absolute bottom-4 left-4 flex items-center gap-2">
+                      <div className="flex items-center gap-1 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-lg">
+                        <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+                        <span className="font-semibold text-sm">{salon.rating}</span>
+                        <span className="text-neutral-500 text-sm">({salon.reviewCount})</span>
+                      </div>
+                    </div>
                   </div>
 
                   {/* Content */}
-                  <div className="p-5">
-                    <h3 className="text-lg font-semibold text-neutral-900 mb-2 group-hover:text-pink-600 transition-colors">
-                      {service.name}
-                    </h3>
+                  <div className="p-6">
+                    <div className="flex items-start justify-between gap-2 mb-2">
+                      <h3 className="text-xl font-semibold text-neutral-900 group-hover:text-pink-600 transition-colors">
+                        {salon.name}
+                      </h3>
+                      <span className="text-neutral-500 font-medium">{salon.priceRange}</span>
+                    </div>
+                    
                     <p className="text-neutral-500 text-sm mb-4 line-clamp-2">
-                      {service.description}
+                      {salon.description}
                     </p>
 
-                    {/* Salon info */}
-                    <div className="flex items-center gap-2 mb-4 text-sm text-neutral-500">
+                    {/* Location */}
+                    <div className="flex items-center gap-2 text-sm text-neutral-500 mb-4">
                       <MapPin className="w-4 h-4" />
-                      <span>{service.salon.name}</span>
-                      <span>•</span>
-                      <span>{service.salon.city}</span>
-                      <span>•</span>
-                      <div className="flex items-center gap-1">
-                        <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
-                        <span>{service.salon.rating}</span>
+                      <span>{salon.address}, {salon.city}</span>
+                    </div>
+
+                    {/* Services */}
+                    <div className="mb-4">
+                      <p className="text-sm font-medium text-neutral-900 mb-2">Dostupne usluge:</p>
+                      <div className="flex flex-wrap gap-2">
+                        {salon.services.map((service, i) => (
+                          <button
+                            key={i}
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              handleSalonClick(salon.id, service)
+                            }}
+                            className="px-3 py-1.5 bg-pink-50 text-pink-600 text-xs rounded-full hover:bg-pink-100 transition-colors font-medium"
+                          >
+                            {service}
+                          </button>
+                        ))}
                       </div>
                     </div>
 
-                    {/* Price & Duration */}
-                    <div className="flex items-center justify-between pt-4 border-t border-neutral-100">
-                      <div>
-                        <div className="text-lg font-bold text-neutral-900">{service.price}</div>
-                        <div className="text-xs text-neutral-400">{service.priceEur}</div>
-                      </div>
-                      <div className="flex items-center gap-1 text-sm text-neutral-500">
-                        <Clock className="w-4 h-4" />
-                        {service.duration} min
-                      </div>
-                    </div>
+                    {/* Book button */}
+                    <button
+                      onClick={() => {
+                        // Book first available service
+                        if (salon.services.length > 0) {
+                          handleSalonClick(salon.id, salon.services[0])
+                        }
+                      }}
+                      className="btn-primary w-full flex items-center justify-center gap-2"
+                    >
+                      Rezerviraj termin
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
                   </div>
-                </div>
-              </Link>
-            </motion.div>
-          ))}
-        </div>
-
-        {filteredServices.length === 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center py-20"
-          >
-            <div className="w-16 h-16 rounded-full bg-neutral-100 flex items-center justify-center mx-auto mb-4">
-              <Search className="w-8 h-8 text-neutral-900" />
+                </motion.div>
+              ))}
             </div>
-            <h3 className="text-xl font-semibold text-neutral-900 mb-2">
-              Nema rezultata
-            </h3>
-            <p className="text-neutral-900">
-              Pokušajte s drugim pojmom za pretraživanje ili kategorijom
-            </p>
           </motion.div>
         )}
       </div>

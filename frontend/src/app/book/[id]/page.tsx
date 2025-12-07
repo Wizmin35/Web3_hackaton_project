@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useWallet } from '@solana/wallet-adapter-react'
@@ -185,7 +185,89 @@ export default function BookingPage() {
   const [selectedTime, setSelectedTime] = useState<string | null>(null)
   const [isProcessing, setIsProcessing] = useState(false)
 
-  const service = serviceData[params.id as string] || serviceData['1']
+  // Get base service data
+  const baseService = serviceData[params.id as string] || serviceData['1']
+  const [service, setService] = useState(baseService)
+
+  // Salon data mapping - maps salon IDs to their details
+  const salonDataMap: Record<string, { name: string; address: string; city: string }> = {
+    '1': { name: 'Studio Hair', address: 'Ilica 50', city: 'Zagreb' },
+    '2': { name: 'Beauty Lounge', address: 'Riva 12', city: 'Split' },
+    '3': { name: 'Nail Art Studio', address: 'Vlaška 90', city: 'Zagreb' },
+    '4': { name: 'Color Studio', address: 'Korzo 15', city: 'Rijeka' },
+    '5': { name: 'Hair Boutique', address: 'Tkalčićeva 25', city: 'Zagreb' },
+    '6': { name: 'Glamour Salon', address: 'Europska avenija 8', city: 'Osijek' },
+  }
+
+  // Override salon data and service name from URL params or sessionStorage if available (from salon selection)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      // First try to get salon ID and service name from URL params
+      const urlParams = new URLSearchParams(window.location.search)
+      const salonIdFromUrl = urlParams.get('salon')
+      const serviceNameFromUrl = urlParams.get('service')
+      
+      // If not in URL, try sessionStorage
+      const selectedSalon = salonIdFromUrl 
+        ? null 
+        : sessionStorage.getItem('selectedSalon')
+      
+      let salon: { id: string; name: string; address: string; city: string; selectedService?: string } | null = null
+      let selectedServiceName: string | null = null
+      
+      if (salonIdFromUrl && salonDataMap[salonIdFromUrl]) {
+        // Use salon data from mapping
+        salon = {
+          id: salonIdFromUrl,
+          ...salonDataMap[salonIdFromUrl]
+        }
+        selectedServiceName = serviceNameFromUrl ? decodeURIComponent(serviceNameFromUrl) : null
+      } else if (selectedSalon) {
+        // Parse from sessionStorage
+        try {
+          salon = JSON.parse(selectedSalon)
+          selectedServiceName = salon.selectedService || null
+        } catch (error) {
+          console.error('Error parsing selected salon:', error)
+        }
+      }
+      
+      if (salon) {
+        setService(prev => {
+          // If we have a selected service name, update the service name and description
+          const updatedService = selectedServiceName 
+            ? {
+                ...prev,
+                name: selectedServiceName,
+                // Keep the description from the original service or use a generic one
+                description: prev.description,
+                salon: {
+                  ...prev.salon,
+                  id: salon.id,
+                  name: salon.name,
+                  address: salon.address,
+                  city: salon.city,
+                }
+              }
+            : {
+                ...prev,
+                salon: {
+                  ...prev.salon,
+                  id: salon.id,
+                  name: salon.name,
+                  address: salon.address,
+                  city: salon.city,
+                }
+              }
+          return updatedService
+        })
+        // Clear sessionStorage after use
+        if (selectedSalon) {
+          sessionStorage.removeItem('selectedSalon')
+        }
+      }
+    }
+  }, [params.id])
 
   // Generate next 14 days
   const availableDates = useMemo(() => {
