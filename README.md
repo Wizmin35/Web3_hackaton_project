@@ -7,6 +7,10 @@
   <img src="https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript" />
 </div>
 
+<div>
+  Sudionici ovog projekta: Katica Anerić, Magdalena Dilber i Filip Brkljača
+</div>
+
 <br />
 
 A decentralized booking platform for salon services (haircuts, nail treatments, styling, coloring) built on Solana blockchain. Pay with crypto through Phantom wallet with automatic smart contract-managed refunds.
