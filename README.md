@@ -11,7 +11,7 @@
 
 A decentralized booking platform for salon services (haircuts, nail treatments) built on Solana blockchain. Pay with crypto through Phantom wallet with automatic smart contract-managed refunds.
 
-**Inspired by [buker.hr](https://buker.hr)** - Clean, minimal design with intuitive UX.
+**Inspired by [buker.hr](https://buker.hr)** - Clean, minimal design with intuitive UX and beautiful light mode interface.
 
 ---
 
@@ -20,9 +20,10 @@ A decentralized booking platform for salon services (haircuts, nail treatments) 
 ### For Clients
 - 🔐 **Phantom Wallet Login** - Secure Web3 authentication
 - 📅 **Easy Booking** - Browse services, pick dates/times, book instantly
-- 💳 **Crypto Payments** - Pay in SOL with instant confirmation
-- 🔄 **Smart Refunds** - Automatic refunds based on cancellation time
-- 📱 **Mobile Ready** - Fully responsive design
+- 💳 **Crypto Payments** - Pay in SOL with instant confirmation on Solana network
+- 🔄 **Smart Refunds** - Automatic refunds based on cancellation time (transparent blockchain rules)
+- 📱 **Mobile Ready** - Fully responsive design with beautiful light mode
+- 🎨 **Modern UI** - Clean, bright interface with pink/rose accents
 
 ### For Salons
 - 🏪 **Register Salon** - On-chain registration with services
@@ -58,7 +59,7 @@ booking-dapp/
 │   │   ├── routes/     # API endpoints
 │   │   ├── services/   # Business logic
 │   │   └── middleware/ # Auth, validation
-│   └── prisma/         # Database schema
+│   └── prisma/         # Database schema (SQLite by default)
 └── frontend/           # Next.js 14 frontend
     ├── src/
     │   ├── app/        # Pages & routes
@@ -78,7 +79,7 @@ booking-dapp/
 - **Solana CLI** ([docs.solana.com](https://docs.solana.com/cli/install-solana-cli-tools))
 - **Anchor Framework** ([anchor-lang.com](https://www.anchor-lang.com))
 - **Phantom Wallet** ([phantom.app](https://phantom.app))
-- **PostgreSQL** for backend database
+- **SQLite** for backend database (or PostgreSQL for production)
 
 ### Setup
 
@@ -131,11 +132,10 @@ cd backend
 # Install dependencies
 npm install
 
-# Create .env file
-cp .env.example .env
+# Create .env file (optional, uses SQLite by default)
 # Edit .env with your settings:
 # - PROGRAM_ID from deployment
-# - DATABASE_URL for PostgreSQL
+# - DATABASE_URL for PostgreSQL (optional, defaults to SQLite)
 
 # Generate Prisma client
 npx prisma generate
@@ -305,7 +305,7 @@ NODE_ENV=production
 SOLANA_RPC_URL=https://api.mainnet-beta.solana.com
 PROGRAM_ID=<your-program-id>
 TREASURY_WALLET=<treasury-pubkey>
-DATABASE_URL=postgresql://...
+DATABASE_URL=file:./prisma/dev.db  # SQLite (default) or postgresql://... for PostgreSQL
 JWT_SECRET=<secure-random-string>
 ALLOWED_ORIGINS=https://yourdomain.com
 ```
@@ -316,6 +316,7 @@ NEXT_PUBLIC_SOLANA_RPC_URL=https://api.mainnet-beta.solana.com
 NEXT_PUBLIC_PROGRAM_ID=<your-program-id>
 NEXT_PUBLIC_API_URL=https://api.yourdomain.com
 NEXT_PUBLIC_SOLANA_CLUSTER=mainnet-beta
+NEXT_PUBLIC_APP_URL=https://yourdomain.com  # For metadata
 ```
 
 ---
@@ -323,19 +324,21 @@ NEXT_PUBLIC_SOLANA_CLUSTER=mainnet-beta
 ## 🎨 Design System
 
 ### Colors
-- **Primary**: Sky Blue (#0ea5e9) - Trust, reliability
-- **Accent**: Fuchsia (#d946ef) - Creativity, beauty
-- **Neutral**: Zinc - Clean, professional
+- **Primary**: Pink (#ec4899) - Beauty, elegance
+- **Accent**: Rose (#f43f5e) - Warmth, passion
+- **Neutral**: Neutral grays - Clean, professional
+- **Background**: Light pink gradients - Soft, inviting
 
 ### Typography
 - **Display**: Outfit - Modern, geometric
 - **Body**: DM Sans - Clean, readable
 
 ### Components
-- Cards with soft shadows
-- Gradient accents
+- Cards with soft shadows and rounded corners
+- Pink/rose gradient accents
 - Smooth animations (Framer Motion)
-- Glass morphism effects
+- Light mode optimized with bright, clean design
+- Responsive mobile-first layout
 
 ---
 
@@ -357,9 +360,9 @@ MIT License - see [LICENSE](LICENSE) for details.
 
 ## 🆘 Support
 
-- 📧 Email: support@solbook.hr
-- 🐦 Twitter: @solbook_hr
-- 💬 Discord: discord.gg/solbook
+- 📧 Email: support@glambook.hr
+- 🐦 Twitter: @glambook_hr
+- 💬 Discord: discord.gg/glambook
 
 ---
 
